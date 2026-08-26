@@ -9,9 +9,9 @@ Without stemming, the query only reaches documents that spelled it
 pluralise, measured at 0.5 on this corpus. The guessed vocabulary
 shrink of 62 to 57 measured 21 to 20 on this small corpus: one
 term saved, cats folding into cat, the compression real but
-proportional to how much the prose actually inflects. Neither number is an opinion; the eval
-exists so the analyzer default is a decision with an invoice
-attached instead of a folk custom.
+proportional to how much the prose actually inflects. Neither
+number is an opinion; the eval exists so the analyzer default is a
+decision with an invoice attached instead of a folk custom.
 """
 
 from __future__ import annotations
