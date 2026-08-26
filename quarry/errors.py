@@ -33,3 +33,7 @@ class Frozen(QuarryError):
 
 class Retired(QuarryError):
     """A reader consulted a segment the merge already swallowed."""
+
+
+class Stale(QuarryError):
+    """A stored artifact speaks an older dialect than this code."""
