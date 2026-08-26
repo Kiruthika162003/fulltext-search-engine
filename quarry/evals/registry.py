@@ -10,6 +10,7 @@ EVALS = (
     "quarry.evals.rarewins",
     "quarry.evals.phrasetruth",
     "quarry.evals.stemtrade",
+    "quarry.evals.lengthnorm",
 )
 
 
