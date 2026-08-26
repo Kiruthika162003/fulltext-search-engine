@@ -11,6 +11,7 @@ EVALS = (
     "quarry.evals.phrasetruth",
     "quarry.evals.stemtrade",
     "quarry.evals.lengthnorm",
+    "quarry.evals.twinties",
 )
 
 
