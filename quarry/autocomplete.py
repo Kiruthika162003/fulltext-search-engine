@@ -17,6 +17,7 @@ an honest name.
 
 from __future__ import annotations
 
+import itertools
 from dataclasses import dataclass, field
 
 from quarry.errors import Invalid
@@ -116,6 +117,6 @@ def stable_between_keystrokes(
     survivor_terms = [held.term for held in survivors]
     return all(
         after_terms.index(a) <= after_terms.index(b)
-        for a, b in zip(survivor_terms, survivor_terms[1:], strict=False)
+        for a, b in itertools.pairwise(survivor_terms)
         if a in after_terms and b in after_terms
     )
