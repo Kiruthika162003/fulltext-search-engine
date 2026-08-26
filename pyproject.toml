@@ -14,6 +14,7 @@ select = [
 ]
 ignore = [
     "N818",
+    "SIM905",
     "PLR2004",
     "PLR0913",
     "PLR0912",

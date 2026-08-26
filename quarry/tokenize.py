@@ -21,7 +21,8 @@ from dataclasses import dataclass
 from quarry.errors import Invalid
 
 STOPWORDS = frozenset(
-    ["a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "has", "he", "in", "is", "it", "its", "of", "on", "or", "that", "the", "to", "was", "were", "will", "with"]
+    "a an and are as at be by for from has he in is it its of on or "
+    "that the to was were will with".split()
 )
 
 SUFFIXES = ("ingly", "edly", "ing", "ies", "ed", "es", "s", "ly")
