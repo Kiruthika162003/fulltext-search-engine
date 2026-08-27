@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from examples import librarian, newsroom, relevancelab
+from examples import librarian, newsroom, relevancelab, searchops
 
 
 class TestLibrarian:
@@ -36,3 +36,14 @@ class TestRelevanceLab:
         assert "OR: 4 document(s)" in out
         assert "AND: 1 document(s)" in out
         assert "interleaving: right wins 5 to 0" in out
+
+
+class TestSearchOps:
+    def test_the_ops_afternoon_reads_end_to_end(self, capsys):
+        assert searchops.main() == 0
+        out = capsys.readouterr().out
+        assert out.startswith("overall: degraded")
+        assert "backlog 30/50, 10 admitted" in out
+        assert "habitual: monday report slow 2 times, worst 800" in out
+        assert "slowest seat multiplies latency by 10" in out
+        assert "moved: queries_served: 0.0 -> 98.0 (+98 queries)" in out
