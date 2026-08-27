@@ -45,20 +45,22 @@ class TestPricing:
             typo_cost("", "kettle")
 
 
+DICTIONARY = {
+    "kettle": 50,
+    "nettle": 400,
+    "settle": 90,
+    "search": 800,
+}
+
+
 class TestCorrection:
-    DICTIONARY = {
-        "kettle": 50,
-        "nettle": 400,
-        "settle": 90,
-        "search": 800,
-    }
 
     def test_the_mechanical_explanation_beats_popularity(self):
-        ranked = correct("kwttle", self.DICTIONARY)
+        ranked = correct("kwttle", DICTIONARY)
         assert ranked[0].word == "kettle"
 
     def test_frequency_breaks_true_ties(self):
-        ranked = correct("cettle", self.DICTIONARY)
+        ranked = correct("cettle", DICTIONARY)
         by_word = {held.word: held.cost for held in ranked}
         assert by_word["kettle"] == by_word["nettle"] == 1.0
         assert by_word["settle"] == 0.4
@@ -68,11 +70,11 @@ class TestCorrection:
         assert nettle_pos < kettle_pos
 
     def test_exact_matches_are_not_corrections(self):
-        ranked = correct("search", self.DICTIONARY)
+        ranked = correct("search", DICTIONARY)
         assert all(held.word != "search" for held in ranked)
 
     def test_the_budget_is_a_fence(self):
-        ranked = correct("zzzzzz", self.DICTIONARY)
+        ranked = correct("zzzzzz", DICTIONARY)
         assert ranked == []
 
     def test_empty_dictionaries_are_refused(self):
