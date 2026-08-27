@@ -57,6 +57,22 @@ class TestDurations:
             parse_duration_ms("0.5ms")
 
 
+class TestForgivingShapes:
+    def test_case_and_padding_are_shrugged_off(self):
+        assert parse_count(" 10K ") == 10_000
+        assert parse_bytes(" 4kib") == 4096
+        assert parse_duration_ms("2S ") == 2000
+
+    def test_inner_spaces_before_the_suffix_survive(self):
+        assert parse_count("10 k") == 10_000
+        assert parse_duration_ms("300 ms") == 300
+
+    def test_clean_fractions_of_big_units_divide_out(self):
+        assert parse_count("0.5k") == 500
+        assert parse_bytes("0.5kib") == 512
+        assert parse_duration_ms("0.25s") == 250
+
+
 class TestTheDoor:
     def test_emptiness_is_not_a_quantity(self):
         with pytest.raises(Invalid, match="not a quantity"):
