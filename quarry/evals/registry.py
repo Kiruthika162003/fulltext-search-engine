@@ -19,6 +19,7 @@ EVALS = (
     "quarry.evals.deadlinehonesty",
     "quarry.evals.costtruth",
     "quarry.evals.fuzzquality",
+    "quarry.evals.pagetruth",
 )
 
 
