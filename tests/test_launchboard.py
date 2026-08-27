@@ -53,7 +53,7 @@ class TestTheDoor:
             LaunchBoard(build="b").report_gate("vibes", True, "good")
 
     def test_wordless_verdicts_cannot_be_argued_with(self):
-        with pytest.raises(Invalid, match="cannot be\\s?argued"):
+        with pytest.raises(Invalid, match="argued with"):
             LaunchBoard(build="b").report_gate(
                 "canary", True, "  "
             )
