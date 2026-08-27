@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import contextlib
+
 import pytest
 
 from quarry.errors import Invalid, Missing
@@ -42,10 +44,8 @@ class TestTheConflict:
     def test_the_winner_is_never_erased(self):
         store, external, version = two_editors()
         store.update(external, {"price": 12}, version)
-        try:
+        with contextlib.suppress(Invalid):
             store.update(external, {"price": 99}, version)
-        except Invalid:
-            pass
         fields, _ = store.read(external)
         assert fields["price"] == 12
 
