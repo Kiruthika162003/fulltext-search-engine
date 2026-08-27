@@ -15,6 +15,7 @@ EVALS = (
     "quarry.evals.synonymgain",
     "quarry.evals.proximitygain",
     "quarry.evals.collapsefair",
+    "quarry.evals.foldgain",
 )
 
 
