@@ -50,9 +50,7 @@ class MaskBook:
                 "no masks declared; masking cannot default to "
                 "showing everything"
             )
-        return max(
-            self.removals.values(), key=lambda held: len(held)
-        )
+        return max(self.removals.values(), key=len)
 
     def mask_for(self, roles: list[str]) -> frozenset[str]:
         if not roles:
