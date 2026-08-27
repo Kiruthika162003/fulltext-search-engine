@@ -12,6 +12,7 @@ EVALS = (
     "quarry.evals.stemtrade",
     "quarry.evals.lengthnorm",
     "quarry.evals.twinties",
+    "quarry.evals.synonymgain",
 )
 
 
