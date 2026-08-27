@@ -74,6 +74,7 @@ class FlagFactor:
             raise Invalid(f"{self.name}: a cap of zero contributes nothing")
 
     def evaluate(self, document: dict, now: int) -> FactorValue:
+        del now
         held = document.get(self.field)
         if held == self.expected:
             return FactorValue(
