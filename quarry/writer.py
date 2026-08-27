@@ -42,8 +42,14 @@ class Index:
             raise Invalid("flush_at must be positive")
 
     def add(self, document: dict[str, object]) -> int:
-        for name in document:
-            self.schema.get(name)
+        for name, value in document.items():
+            declared = self.schema.get(name)
+            if declared.kind == "numeric" and not isinstance(value, int):
+                raise Invalid(
+                    f"{name} is numeric and {value!r} is not an "
+                    f"integer; refused at the door rather than at "
+                    f"flush, where it would sink innocent documents"
+                )
         external = self.next_id
         self.next_id += 1
         self.pending.append((external, document))
