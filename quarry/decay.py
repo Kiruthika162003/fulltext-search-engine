@@ -96,7 +96,7 @@ class DecayBook:
         rows.sort(key=lambda row: (-row[1], row[0]))
         return rows[:limit]
 
-    def ledger_line(self, now: int) -> str:
+    def ledger_line(self) -> str:
         live = len(self.weights)
         return (
             f"{live} key(s) held, {self.pruned_mass:.4f} decayed mass "

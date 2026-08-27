@@ -53,7 +53,7 @@ class TestPruning:
         assert pruned == 1
         assert "old" not in book.weights
         assert book.pruned_mass > 0
-        assert "decayed mass pruned" in book.ledger_line(now=100)
+        assert "decayed mass pruned" in book.ledger_line()
 
     def test_live_weights_survive_the_prune(self):
         book = DecayBook(half_life=100)
