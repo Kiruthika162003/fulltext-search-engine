@@ -33,12 +33,34 @@ def main(argv: list[str] | None = None) -> int:
         "search", help="search the fixture corpus from the shell"
     )
     demo.add_argument("text", help="the query, quarry syntax")
+    commands.add_parser(
+        "health", help="run the canary checks and print the board"
+    )
+    commands.add_parser(
+        "summary", help="one line: evals, checks, and their verdicts"
+    )
     parsed = parser.parse_args(argv)
     if parsed.command == "evals":
         print(report())
         return 0
     if parsed.command == "search":
         return _demo(parsed.text)
+    if parsed.command == "health":
+        from quarry.health import HealthBoard, index_canary_check
+
+        board = HealthBoard()
+        board.register("index", index_canary_check())
+        page = board.page()
+        print(page)
+        return 0 if page.startswith("overall: healthy") else 1
+    if parsed.command == "summary":
+        from quarry.evals.registry import EVALS
+
+        failing = broken()
+        print(
+            f"{len(EVALS)} evals ({len(failing)} broken)"
+        )
+        return 1 if failing else 0
     failing = broken()
     if failing:
         print(f"broken: {', '.join(failing)}")

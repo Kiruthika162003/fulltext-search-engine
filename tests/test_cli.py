@@ -24,3 +24,13 @@ class TestCli:
         assert main(["search", "catz"]) == 0
         out = capsys.readouterr().out
         assert "did you mean: cat" in out
+
+    def test_health_runs_the_canary(self, capsys):
+        assert main(["health"]) == 0
+        out = capsys.readouterr().out
+        assert out.startswith("overall: healthy")
+        assert "found one canary" in out
+
+    def test_summary_is_one_honest_line(self, capsys):
+        assert main(["summary"]) == 0
+        assert "evals (0 broken)" in capsys.readouterr().out
