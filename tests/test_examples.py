@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from examples import (
+    atlas,
     codesearch,
     indexkeeper,
     librarian,
@@ -76,6 +77,18 @@ class TestCodesearch:
         engine = codesearch.build_code_index()
         found = codesearch.search_symbols(engine, "cache")
         assert set(found) == {"HTTPResponseCache", "purgeStaleCache"}
+
+
+class TestAtlas:
+    def test_the_atlas_afternoon_reads_end_to_end(self, capsys):
+        assert atlas.main() == 0
+        out = capsys.readouterr().out
+        assert "maps: navigation-heavy" in out
+        assert "maps/nautical: a shelf, 2 direct of 2 total" in out
+        assert "tier loosened: 3 hit(s) (starved: exact)" in out
+        assert "fusion winner: doc 0 (3 lists)" in out
+        assert "retrieve: 38 (63% of atlas-search)" in out
+        assert "[unexplained: 10 inside atlas-search" in out
 
 
 class TestIndexkeeper:
