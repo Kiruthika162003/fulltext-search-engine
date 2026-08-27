@@ -24,7 +24,7 @@ def board() -> FlagBoard:
 
 class TestDeclaration:
     def test_ownerless_flags_outlive_their_authors(self):
-        with pytest.raises(Invalid, match="outlives\\s+its author|name one"):
+        with pytest.raises(Invalid, match="name one"):
             Flag(
                 name="x",
                 owner=" ",
