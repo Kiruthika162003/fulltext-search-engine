@@ -8,6 +8,7 @@ from examples import (
     newsroom,
     relevancelab,
     searchops,
+    shipday,
     storefront,
 )
 
@@ -101,6 +102,19 @@ class TestIndexkeeper:
         assert "all 1 drills held" in out
         assert out.rstrip().endswith(
             "PROCEED WITH CARE: warnings are choices"
+        )
+
+
+class TestShipday:
+    def test_the_launch_reads_go_with_evidence(self, capsys):
+        assert shipday.main() == 0
+        out = capsys.readouterr().out
+        assert out.startswith("launch board for ranker-v12:")
+        assert "[GREEN] regression: SHIP" in out
+        assert "[GREEN] shadow: READY: 100% agreement" in out
+        assert "[GREEN] freeze: reindex proceeds" in out
+        assert out.rstrip().endswith(
+            "VERDICT: GO, all four gates green"
         )
 
 
