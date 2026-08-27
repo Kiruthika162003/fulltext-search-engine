@@ -18,8 +18,7 @@ def logbook() -> Segment:
     builder.add({"body": "timeout preceded the error report"})
     builder.add({"body": "error logged; database timeout followed later"})
     builder.add({"body": "an error without incident"})
-    segment = builder.seal("logbook")
-    return segment
+    return builder.seal("logbook")
 
 
 class TestNear:
