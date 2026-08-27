@@ -27,7 +27,7 @@ class TestStages:
 
     def test_red_refuses_bulk_but_admits_singles(self):
         held = filled_to(15)
-        with pytest.raises(Frozen, match="bulk\\b.*waits"):
+        with pytest.raises(Frozen, match=r"bulk traffic waits"):
             held.admit(bulk=True)
         assert "admitted" in held.admit()
 
