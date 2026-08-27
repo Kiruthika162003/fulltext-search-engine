@@ -3,8 +3,9 @@
 A corpus where one newsletter owns four of the six matches: the
 guess was a newsletter with guests, diversity 2 in the top four;
 the measurement says the newsletter owns the entire top four,
-diversity 1, a monoculture with no guests at all. Collapsed by source, the page shows
-one row per source, diversity 3 of 3, and the receipt is what the
+diversity 1, a monoculture with no guests at all. Collapsed by
+source, the page shows one row per source, diversity 3 of 3, and
+the receipt is what the
 eval exists to pin: nothing was deleted, the folded issues are
 countable under their representative, and the representative of
 each group is exactly the group's best flat-ranking scorer, so
