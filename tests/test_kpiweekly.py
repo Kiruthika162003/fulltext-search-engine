@@ -28,7 +28,6 @@ class TestTheNumbers:
 
     def test_stray_metrics_are_refused(self):
         with pytest.raises(Invalid, match="five numbers"):
-            week("w1").values
             WeekNumbers(
                 label="w1",
                 values={
