@@ -90,7 +90,7 @@ def diff_query(
                 Move(doc=doc, before=None, after=after_pos[doc])
             )
     shared = [doc for doc in before if doc in after_pos]
-    disorder = _footrule(shared, before_pos, after_pos)
+    disorder = _footrule(shared, after_pos)
     return QueryDiff(
         canonical=canonical,
         moves=tuple(moves),
@@ -100,7 +100,6 @@ def diff_query(
 
 def _footrule(
     shared: list[int],
-    before_pos: dict[int, int],
     after_pos: dict[int, int],
 ) -> float:
     """Spearman footrule over shared docs, scaled to its worst case."""
