@@ -18,6 +18,7 @@ deadline.
 
 from __future__ import annotations
 
+import itertools
 import re
 from dataclasses import dataclass
 
@@ -57,7 +58,7 @@ def render_snippet(text: str, marks: list[Emphasis]) -> str:
                 f"{len(text)} characters"
             )
     ordered = sorted(marks, key=lambda held: held.start)
-    for left, right in zip(ordered, ordered[1:], strict=False):
+    for left, right in itertools.pairwise(ordered):
         if right.start < left.end:
             raise Invalid(
                 "emphasis spans overlap; two highlights on one "
