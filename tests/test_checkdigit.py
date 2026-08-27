@@ -37,3 +37,16 @@ class TestTheTripwire:
             verify("x123")
         with pytest.raises(Invalid, match="not a stamped id"):
             verify("7")
+
+
+class TestPhoneRealities:
+    def test_padding_from_dictation_is_forgiven(self):
+        assert verify(f"  {stamp(12345)} ") == 12345
+
+    def test_zero_is_a_document_too(self):
+        assert verify(stamp(0)) == 0
+        assert len(stamp(0)) == 2
+
+    def test_neighboring_ids_never_share_a_stamp(self):
+        stamped = {stamp(external) for external in range(200)}
+        assert len(stamped) == 200
