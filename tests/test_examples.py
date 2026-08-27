@@ -3,6 +3,7 @@ from __future__ import annotations
 from examples import (
     atlas,
     codesearch,
+    grandtour,
     indexkeeper,
     librarian,
     newsroom,
@@ -90,6 +91,16 @@ class TestAtlas:
         assert "fusion winner: doc 0 (3 lists)" in out
         assert "retrieve: 38 (63% of atlas-search)" in out
         assert "[unexplained: 10 inside atlas-search" in out
+
+
+class TestGrandTour:
+    def test_the_engine_admits_itself(self, capsys):
+        assert grandtour.main() == 0
+        out = capsys.readouterr().out
+        assert "modules state their thesis" in out
+        assert "13 evals in the registry, 0 broken" in out
+        assert "arriving, not broken" in out
+        assert "census over 3 document(s)" in out
 
 
 class TestIndexkeeper:
