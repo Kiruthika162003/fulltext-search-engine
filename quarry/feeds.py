@@ -107,12 +107,11 @@ class FeedAdapter:
 
     def intake_report(self) -> str:
         buried = len(self.dead_letters) + self.dead_letter_overflow
-        report = (
+        return (
             f"{self.adapted} rows adapted, {buried} dead "
             f"({self.dead_letter_overflow} past the queue), "
             f"{self.fields_dropped} unmapped fields dropped"
         )
-        return report
 
     def first_complaints(self, limit: int = 3) -> list[str]:
         if limit <= 0:
