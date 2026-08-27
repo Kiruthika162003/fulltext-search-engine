@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from examples import (
     codesearch,
+    indexkeeper,
     librarian,
     newsroom,
     relevancelab,
@@ -75,6 +76,19 @@ class TestCodesearch:
         engine = codesearch.build_code_index()
         found = codesearch.search_symbols(engine, "cache")
         assert set(found) == {"HTTPResponseCache", "purgeStaleCache"}
+
+
+class TestIndexkeeper:
+    def test_the_keepers_shift_reads_end_to_end(self, capsys):
+        assert indexkeeper.main() == 0
+        out = capsys.readouterr().out
+        assert "RESTORABLE" in out
+        assert "recovered cleanly: 1 entrie(s) after checkpoint 0" in out
+        assert "drained 4; stage amber -> green" in out
+        assert "all 1 drills held" in out
+        assert out.rstrip().endswith(
+            "PROCEED WITH CARE: warnings are choices"
+        )
 
 
 class TestStorefront:
