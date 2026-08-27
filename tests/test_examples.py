@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from examples import librarian, newsroom
+from examples import librarian, newsroom, relevancelab
 
 
 class TestLibrarian:
@@ -25,3 +25,14 @@ class TestNewsroom:
             "synonym candidate: 'bridge collapse' -> 'bridge budget', "
             "3 sessions agree" in out
         )
+
+
+class TestRelevanceLab:
+    def test_the_lab_afternoon_reads_end_to_end(self, capsys):
+        assert relevancelab.main() == 0
+        out = capsys.readouterr().out
+        assert "[holds] rarewins" in out
+        assert "BROKEN" not in out
+        assert "OR: 4 document(s)" in out
+        assert "AND: 1 document(s)" in out
+        assert "interleaving: right wins 5 to 0" in out
