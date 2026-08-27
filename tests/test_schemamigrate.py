@@ -82,21 +82,24 @@ class TestPlanning:
         assert "DATA LOSS: this drops author" in plan.describe()
 
 
-class TestMigratingDocuments:
-    DOCS = [
+def docs() -> list[dict[str, object]]:
+    return [
         {"body": "a quiet cove", "author": "finch", "year": 1998},
         {"body": "the long walk", "author": "wren", "year": 2004},
     ]
 
+
+class TestMigratingDocuments:
+
     def test_unacknowledged_loss_refuses_to_run(self):
         plan = plan_migration(old_schema(), new_schema())
         with pytest.raises(Invalid, match="nobody acknowledged"):
-            migrate_documents(plan, self.DOCS)
+            migrate_documents(plan, docs())
 
     def test_acknowledged_loss_drops_the_field(self):
         plan = plan_migration(old_schema(), new_schema())
         moved = migrate_documents(
-            plan, self.DOCS, acknowledge_loss=True
+            plan, docs(), acknowledge_loss=True
         )
         assert moved[0] == {"body": "a quiet cove", "year": 1998}
 
@@ -105,7 +108,7 @@ class TestMigratingDocuments:
         plan = plan_migration(
             old_schema(), new_schema(), renames=renames
         )
-        moved = migrate_documents(plan, self.DOCS, renames=renames)
+        moved = migrate_documents(plan, docs(), renames=renames)
         assert moved[1]["writer"] == "wren"
         assert "author" not in moved[1]
 
@@ -118,5 +121,5 @@ class TestMigratingDocuments:
         wider.seal()
         plan = plan_migration(old_schema(), wider)
         assert plan.free()
-        moved = migrate_documents(plan, self.DOCS)
-        assert moved == self.DOCS
+        moved = migrate_documents(plan, docs())
+        assert moved == docs()
