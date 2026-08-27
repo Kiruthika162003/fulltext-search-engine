@@ -19,6 +19,7 @@ block overhead counted rather than waved away.
 
 from __future__ import annotations
 
+import itertools
 from dataclasses import dataclass
 
 from quarry.errors import Invalid
@@ -57,7 +58,7 @@ class CodedBlock:
 def encode_dictionary(terms: list[str]) -> list[CodedBlock]:
     if not terms:
         raise Invalid("an empty dictionary codes nothing")
-    for left, right in zip(terms, terms[1:], strict=False):
+    for left, right in itertools.pairwise(terms):
         if right <= left:
             raise Invalid(
                 f"{right!r} after {left!r} is not sorted-unique; "
