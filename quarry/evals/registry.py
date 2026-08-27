@@ -13,6 +13,7 @@ EVALS = (
     "quarry.evals.lengthnorm",
     "quarry.evals.twinties",
     "quarry.evals.synonymgain",
+    "quarry.evals.proximitygain",
 )
 
 

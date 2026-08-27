@@ -59,4 +59,4 @@ class TestTheSuite:
         page = report()
         for dotted in EVALS:
             assert dotted.rsplit(".", 1)[1] in page
-        assert page.endswith("6 evals, 0 broken")
+        assert page.endswith("7 evals, 0 broken")
