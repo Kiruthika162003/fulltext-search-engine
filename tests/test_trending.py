@@ -53,7 +53,7 @@ class TestNewborns:
 
     def test_a_newborn_ratio_is_refused_as_arithmetic(self):
         newborn = Trend(query="x", previous=0, current=6)
-        with pytest.raises(Invalid, match="not\\s+arithmetic"):
+        with pytest.raises(Invalid, match=r"not\s+arithmetic"):
             newborn.ratio()
 
     def test_quiet_newborns_stay_out_of_the_paper(self):
