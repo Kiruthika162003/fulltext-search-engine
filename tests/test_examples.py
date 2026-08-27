@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from examples import (
+    codesearch,
     librarian,
     newsroom,
     relevancelab,
@@ -53,6 +54,27 @@ class TestSearchOps:
         assert "habitual: monday report slow 2 times, worst 800" in out
         assert "slowest seat multiplies latency by 10" in out
         assert "moved: queries_served: 0.0 -> 98.0 (+98 queries)" in out
+
+
+class TestCodesearch:
+    def test_the_code_hour_reads_end_to_end(self, capsys):
+        assert codesearch.main() == 0
+        out = capsys.readouterr().out
+        assert "HTTPResponseCache -> HTTP + Response + Cache" in out
+        assert "getUserName" in out
+        assert "exact spelling ranks first: getUserName" in out
+
+    def test_subword_queries_reach_camel_case(self):
+        engine = codesearch.build_code_index()
+        found = codesearch.search_symbols(engine, "user")
+        assert "getUserName" in found
+        assert "get_user_id" in found
+        assert "renameUser" in found
+
+    def test_cache_finds_both_spellings(self):
+        engine = codesearch.build_code_index()
+        found = codesearch.search_symbols(engine, "cache")
+        assert set(found) == {"HTTPResponseCache", "purgeStaleCache"}
 
 
 class TestStorefront:
