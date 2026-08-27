@@ -25,3 +25,4 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 "tests/*" = ["PLR0915", "ARG002"]
 "quarry/cli.py" = ["PLC0415"]
+"quarry/health.py" = ["PLC0415"]
