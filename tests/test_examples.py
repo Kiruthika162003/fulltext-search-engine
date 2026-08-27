@@ -1,6 +1,12 @@
 from __future__ import annotations
 
-from examples import librarian, newsroom, relevancelab, searchops
+from examples import (
+    librarian,
+    newsroom,
+    relevancelab,
+    searchops,
+    storefront,
+)
 
 
 class TestLibrarian:
@@ -47,3 +53,15 @@ class TestSearchOps:
         assert "habitual: monday report slow 2 times, worst 800" in out
         assert "slowest seat multiplies latency by 10" in out
         assert "moved: queries_served: 0.0 -> 98.0 (+98 queries)" in out
+
+
+class TestStorefront:
+    def test_the_storefront_hour_reads_end_to_end(self, capsys):
+        assert storefront.main() == 0
+        out = capsys.readouterr().out
+        assert "+ fresh: 0.27991 (age 5, 0.1 half-lives)" in out
+        assert "+ in-stock: 0.0 (stock='no', wanted 'yes')" in out
+        assert "collapsed by brand: 3 group(s)" in out
+        assert "acme: doc 0 (0.074108) and 2 more" in out
+        assert "shopper-7 refused after 2 queries; retry in 1" in out
+        assert "admissions: yyn" in out
