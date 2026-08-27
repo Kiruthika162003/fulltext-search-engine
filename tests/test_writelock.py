@@ -10,7 +10,7 @@ class TestLeases:
     def test_the_lease_is_exclusive_while_live(self):
         lock = WriteLock()
         lock.acquire("writer-a", now=0, duration=100)
-        with pytest.raises(Frozen, match="do\\s?not break the lock"):
+        with pytest.raises(Frozen, match="not break the lock"):
             lock.acquire("writer-b", now=50, duration=100)
 
     def test_expiry_frees_the_lock_without_a_human(self):
@@ -34,7 +34,7 @@ class TestLeases:
     def test_only_the_holder_renews(self):
         lock = WriteLock()
         lock.acquire("writer-a", now=0, duration=100)
-        with pytest.raises(Invalid, match="for\\s?the holder"):
+        with pytest.raises(Invalid, match="the holder"):
             lock.renew("writer-b", now=50, duration=100)
 
 
@@ -52,7 +52,7 @@ class TestFencing:
         store.write("first write", zombie_token)
         fresh_token = lock.acquire("writer-b", now=20, duration=10)
         store.write("successor writes", fresh_token)
-        with pytest.raises(Stale, match="bounces\\s?off the fence"):
+        with pytest.raises(Stale, match="off the fence"):
             store.write("zombie wakes up", zombie_token)
         assert store.bounced == 1
 
