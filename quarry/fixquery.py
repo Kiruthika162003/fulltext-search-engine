@@ -55,7 +55,11 @@ def _mend_once(text: str) -> tuple[str, str] | None:
     pieces = stripped.split()
     for index, piece in enumerate(pieces):
         if piece.startswith(":"):
-            mended = pieces[:index] + [piece.lstrip(":")] + pieces[index + 1 :]
+            mended = [
+                *pieces[:index],
+                piece.lstrip(":"),
+                *pieces[index + 1 :],
+            ]
             return (
                 " ".join(part for part in mended if part),
                 "stripped the colon with no field before it",
