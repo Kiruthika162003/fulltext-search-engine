@@ -73,6 +73,10 @@ class HedgedReader:
     ) -> ReadOutcome:
         if primary_latency < 0:
             raise Invalid("negative latency is a clock bug")
+        if primary not in self.replicas:
+            raise Invalid(
+                f"{primary} is not a replica in this group"
+            )
         hedged = primary_latency > self.hedge_delay_ms
         if not hedged:
             outcome = ReadOutcome(
