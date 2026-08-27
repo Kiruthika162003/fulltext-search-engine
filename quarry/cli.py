@@ -39,7 +39,34 @@ def main(argv: list[str] | None = None) -> int:
     commands.add_parser(
         "summary", help="one line: evals, checks, and their verdicts"
     )
+    commands.add_parser(
+        "modules", help="the module catalog from docstring headlines"
+    )
+    triage = commands.add_parser(
+        "repair", help="mend a broken query and say what was mended"
+    )
+    triage.add_argument("text", help="the possibly-broken query")
     parsed = parser.parse_args(argv)
+    if parsed.command == "modules":
+        import pathlib
+
+        from quarry.inventory import catalog
+
+        package_dir = str(pathlib.Path(__file__).parent)
+        print(catalog(package_dir))
+        return 0
+    if parsed.command == "repair":
+        from quarry.errors import Invalid
+        from quarry.fixquery import repair
+
+        try:
+            held = repair(parsed.text)
+        except Invalid as refused:
+            print(f"beyond repair: {refused}")
+            return 1
+        print(held.query.canonical())
+        print(held.narrated())
+        return 0
     if parsed.command == "evals":
         print(report())
         return 0
