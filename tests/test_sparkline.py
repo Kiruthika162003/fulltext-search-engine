@@ -47,3 +47,12 @@ class TestLabeling:
         line = labeled("p95_ms", [80, 80, 200])
         assert line.startswith("p95_ms: ")
         assert "(80 to 200)" in line
+
+    def test_a_single_point_is_a_flat_line_of_one(self):
+        line = spark([42])
+        assert line == ". (flat at 42)"
+
+    def test_gap_weeks_keep_their_bounds_honest(self):
+        line = spark([None, 10, None, 90, None])
+        assert "(10 to 90)" in line
+        assert line.startswith(" . # ")
