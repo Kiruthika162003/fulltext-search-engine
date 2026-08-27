@@ -45,11 +45,11 @@ class TestCheckpoints:
     def test_checkpoints_only_advance(self):
         journal = busy_journal()
         journal.mark_checkpoint(2)
-        with pytest.raises(Stale, match="only\\s+advance"):
+        with pytest.raises(Stale, match=r"only advance"):
             journal.mark_checkpoint(1)
 
     def test_checkpoints_cannot_cover_the_future(self):
-        with pytest.raises(Invalid, match="do not\\s+exist"):
+        with pytest.raises(Invalid, match=r"do not exist"):
             busy_journal().mark_checkpoint(9)
 
 
