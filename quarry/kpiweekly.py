@@ -18,6 +18,7 @@ which some weeks means the honest sentence is nothing moved.
 
 from __future__ import annotations
 
+import itertools
 from dataclasses import dataclass
 
 from quarry.errors import Invalid, Missing
@@ -106,6 +107,6 @@ def story(weeks: list[WeekNumbers]) -> str:
             "snapshot"
         )
     pages = []
-    for last, this in zip(weeks, weeks[1:], strict=False):
+    for last, this in itertools.pairwise(weeks):
         pages.append(digest(last, this))
     return "\n\n".join(pages)
