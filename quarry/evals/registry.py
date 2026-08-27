@@ -18,6 +18,7 @@ EVALS = (
     "quarry.evals.foldgain",
     "quarry.evals.deadlinehonesty",
     "quarry.evals.costtruth",
+    "quarry.evals.fuzzquality",
 )
 
 
